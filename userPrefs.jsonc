@@ -96,8 +96,7 @@
   // "USERPREFS_MESH_BEACON_TARGET_3_CHANNEL_INDEX": "3",
   // "USERPREFS_RINGTONE_NAG_SECS": "60",
   // "USERPREFS_NODEINFO_REPLY_SUPPRESS_SECS": "43200",
-  // "USERPREFS_UI_TEST_LOG": "true", // Test-only: emits `Screen: frame N/M name=... reason=...` log per UI transition (for the meshtastic-mcp ui test tier); off in release builds.
-  "USERPREFS_RINGTONE_RTTTL": "24:d=32,o=5,b=565:f6,p,f6,4p,p,f6,p,f6,2p,p,b6,p,b6,p,b6,p,b6,p,b,p,b,p,b,p,b,p,b,p,b,p,b,p,b,1p.,2p.,p",
+  "USERPREFS_RINGTONE_RTTTL": "row:d=16,o=5,b=160:a,f#6.,32p,a#5,c#4.,32p,f5,8p.,b6,d#4.,32p,g#,32g4,d.,32p,c5,16p.,e4",
   // "USERPREFS_NETWORK_IPV6_ENABLED": "1",
   "USERPREFS_TZ_STRING": "PST8PDT,M3.2.0/2:00:00,M11.1.0/2:00:00"
 }
