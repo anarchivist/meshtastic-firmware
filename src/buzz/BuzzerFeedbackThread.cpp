@@ -31,9 +31,17 @@ int BuzzerFeedbackThread::handleInputEvent(const InputEvent *event)
     case INPUT_BROKER_USER_PRESS:
     case INPUT_BROKER_ALT_PRESS:
     case INPUT_BROKER_SELECT:
+#ifndef FLAGDAY_LAUNCH_CANNED_WITH_SELECT_LONG
     case INPUT_BROKER_SELECT_LONG:
         playBeep();
         break;
+#else
+        playBeep();
+        break;
+    case INPUT_BROKER_SELECT_LONG:
+        playLongPressLeadUp();
+        break;
+#endif
 #endif
 
     case INPUT_BROKER_UP:
