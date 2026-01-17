@@ -165,7 +165,7 @@ int CannedMessageModule::splitConfiguredMessages()
 #if defined(USE_VIRTUAL_KEYBOARD)
     // Add a "Free Text" entry at the top if using a touch screen virtual keyboard
     tempMessages[tempCount++] = "[-- Free Text --]";
-#else
+#elif !defined(FLAGDAY_HIDE_KEYBOARD)
     if (osk_found && screen) {
         tempMessages[tempCount++] = "[-- Free Text --]";
     }
