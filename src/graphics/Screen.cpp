@@ -1674,6 +1674,13 @@ int Screen::handleInputEvent(const InputEvent *event)
                 return 0;
             }
         }
+
+#ifdef FLAGDAY_LAUNCH_CANNED_WITH_SELECT_LONG
+        // there's no way to get out w/o using the USER button, so compromise
+        if (event->inputEvent == INPUT_BROKER_SELECT_LONG) {
+            cannedMessageModule->LaunchWithDestination(NODENUM_BROADCAST);
+        }
+#endif
     }
     // UP/DOWN in node list screens scrolls through node pages
     if (ui->getUiState()->currentFrame == framesetInfo.positions.nodelist_nodes ||

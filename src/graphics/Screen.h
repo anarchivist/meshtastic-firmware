@@ -708,6 +708,17 @@ class Screen : public concurrency::OSThread
 
     struct hiddenFrames {
         bool textMessage = false;
+#ifdef FLAGDAY_HIDE_DEFAULT_FRAMES
+        bool waypoint = true;
+        bool wifi = true;
+        bool system = true;
+        bool home = true;
+        bool clock = true;
+        bool nodelist_nodes = false;
+        bool nodelist_location = true;
+        bool gps = true;
+        bool lora = true;
+#else
         bool waypoint = false;
         bool wifi = false;
         bool system = false;
@@ -729,6 +740,7 @@ class Screen : public concurrency::OSThread
         bool gps = false;
 #endif
         bool lora = false;
+#endif
         bool show_favorites = false;
         bool chirpy = true;
     } hiddenFrames;
