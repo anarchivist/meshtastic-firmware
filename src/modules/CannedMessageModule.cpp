@@ -224,9 +224,14 @@ void CannedMessageModule::resetSearch()
 
     // Adjust scrollIndex so previousDestIndex is still visible
     int totalEntries = activeChannelIndices.size() + filteredNodes.size();
+#ifndef FLAGDAY_CANNED_MESSAGES_DEFAULTS
     this->visibleRows = (displayHeight - FONT_HEIGHT_SMALL * 2) / FONT_HEIGHT_SMALL;
     if (this->visibleRows < 1)
         this->visibleRows = 1;
+#else
+    // i wish this were more elegant
+    this->visibleRows = (displayHeight - FONT_HEIGHT_SMALL) / (FONT_HEIGHT_MEDIUM + 2);
+#endif
     int maxScrollIndex = std::max(0, totalEntries - visibleRows);
     scrollIndex = std::min(std::max(previousDestIndex - (visibleRows / 2), 0), maxScrollIndex);
 
@@ -2017,7 +2022,11 @@ void CannedMessageModule::drawFrame(OLEDDisplay *display, OLEDDisplayUiState *st
         display->setFont(FONT_SMALL);
 
         // Precompute per-row heights based on emotes (centered if present)
+#ifndef FLAGDAY_CANNED_MESSAGES_DEFAULTS
         const int baseRowSpacing = FONT_HEIGHT_SMALL - 4;
+#else
+        const int baseRowSpacing = FONT_HEIGHT_MEDIUM - 4;
+#endif
 
         int topMsg;
         int _visibleRows;
@@ -2025,8 +2034,15 @@ void CannedMessageModule::drawFrame(OLEDDisplay *display, OLEDDisplayUiState *st
         // Draw header (To: ...)
         drawHeader(display, x, y, buffer);
 
+#ifdef FLAGDAY_CANNED_MESSAGES_DEFAULTS
+        display->setFont(FONT_MEDIUM);
+#endif
         // Shift message list upward by 3 pixels to reduce spacing between header and first message
+#ifndef FLAGDAY_CANNED_MESSAGES_DEFAULTS
         const int listYOffset = y + FONT_HEIGHT_SMALL - 3;
+#else
+        const int listYOffset = y + FONT_HEIGHT_MEDIUM - 3;
+#endif
         _visibleRows = (display->getHeight() - listYOffset) / baseRowSpacing;
 
         // Figure out which messages are visible and their needed heights
@@ -2045,7 +2061,11 @@ void CannedMessageModule::drawFrame(OLEDDisplay *display, OLEDDisplayUiState *st
             bool _highlight = (msgIdx == currentMessageIndex);
 
             // Vertically center based on rowHeight
+#ifndef FLAGDAY_CANNED_MESSAGES_DEFAULTS
             int textYOffset = (rowHeight - FONT_HEIGHT_SMALL) / 2;
+#else
+            int textYOffset = (rowHeight - FONT_HEIGHT_MEDIUM) / 2;
+#endif
 
 #ifdef USE_EINK
             int nextX = x + (_highlight ? 12 : 0);
@@ -2284,7 +2304,11 @@ bool CannedMessageModule::saveProtoForModule()
  */
 void CannedMessageModule::installDefaultCannedMessageModuleConfig()
 {
+#ifndef FLAGDAY_CANNED_MESSAGES_DEFAULTS
     strncpy(cannedMessageModuleConfig.messages, "Hi|Bye|Yes|No|Ok", sizeof(cannedMessageModuleConfig.messages));
+#else
+    strncpy(cannedMessageModuleConfig.messages, FLAGDAY_CANNED_MESSAGES_DEFAULTS, sizeof(cannedMessageModuleConfig.messages));
+#endif
 }
 
 /**
