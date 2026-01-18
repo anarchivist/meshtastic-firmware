@@ -97,7 +97,11 @@ void CannedMessageModule::LaunchWithDestination(NodeNum newDest, uint8_t newChan
     // Upon activation, highlight "[Select Destination]"
     int selectDestination = 0;
     for (int i = 0; i < messagesCount; ++i) {
+#ifndef FLAGDAY_L10N_SELECT_DESTINATION
         if (strcmp(messages[i], "[Select Destination]") == 0) {
+#else
+        if (strcmp(messages[i], FLAGDAY_L10N_SELECT_DESTINATION) == 0) {
+#endif
             selectDestination = i;
             break;
         }
@@ -161,7 +165,11 @@ int CannedMessageModule::splitConfiguredMessages()
     const char *tempMessages[CANNED_MESSAGE_MODULE_MESSAGE_MAX_COUNT + 3] = {0};
     int tempCount = 0;
     // Insert at position 0 (top)
+#ifndef FLAGDAY_L10N_SELECT_DESTINATION
     tempMessages[tempCount++] = "[Select Destination]";
+#else
+    tempMessages[tempCount++] = FLAGDAY_L10N_SELECT_DESTINATION;
+#endif
 #if defined(USE_VIRTUAL_KEYBOARD)
     // Add a "Free Text" entry at the top if using a touch screen virtual keyboard
     tempMessages[tempCount++] = "[-- Free Text --]";
@@ -689,7 +697,11 @@ bool CannedMessageModule::handleMessageSelectorInput(const InputEvent *event, bo
         const char *current = messages[currentMessageIndex];
 
         // [Select Destination] triggers destination selection UI
+#ifndef FLAGDAY_L10N_SELECT_DESTINATION
         if (strcmp(current, "[Select Destination]") == 0) {
+#else
+        if (strcmp(current, FLAGDAY_L10N_SELECT_DESTINATION) == 0) {
+#endif
             returnToCannedList = true;
             updateState(CANNED_MESSAGE_RUN_STATE_DESTINATION_SELECTION, true);
             destIndex = 0;
@@ -1249,8 +1261,12 @@ int32_t CannedMessageModule::runOnce()
                 this->updateState(CANNED_MESSAGE_RUN_STATE_INACTIVE);
             }
         } else {
+#ifndef FLAGDAY_L10N_SELECT_DESTINATION
             if (strcmp(this->messages[this->currentMessageIndex], "[Select Destination]") == 0) {
-                this->updateState(CANNED_MESSAGE_RUN_STATE_ACTIVE);
+#else
+            if (strcmp(this->messages[this->currentMessageIndex], FLAGDAY_L10N_SELECT_DESTINATION) == 0) {
+#endif
+                this->runState = CANNED_MESSAGE_RUN_STATE_ACTIVE;
                 return INT32_MAX;
             }
             if ((this->messagesCount > this->currentMessageIndex) && (strlen(this->messages[this->currentMessageIndex]) > 0)) {
@@ -1295,7 +1311,11 @@ int32_t CannedMessageModule::runOnce()
         if (this->runState == CANNED_MESSAGE_RUN_STATE_ACTIVE) {
             int selectDestination = 0;
             for (int i = 0; i < this->messagesCount; ++i) {
+#ifndef FLAGDAY_L10N_SELECT_DESTINATION
                 if (strcmp(this->messages[i], "[Select Destination]") == 0) {
+#else
+                if (strcmp(this->messages[i], FLAGDAY_L10N_SELECT_DESTINATION) == 0) {
+#endif
                     selectDestination = i;
                     break;
                 }
@@ -1668,7 +1688,11 @@ void CannedMessageModule::drawDestinationSelectionScreen(OLEDDisplay *display, O
 
     // Header
     int titleY = 2;
+#ifndef FLAGDAY_L10N_SELECT_DESTINATION
     String titleText = "Select Destination";
+#else
+    String titleText = FLAGDAY_L10N_SELECT_DESTINATION;
+#endif
     titleText += searchQuery.length() > 0 ? " [" + searchQuery + "]" : " [ ]";
     display->setTextAlignment(TEXT_ALIGN_CENTER);
     display->drawString(display->getWidth() / 2, titleY, titleText);
