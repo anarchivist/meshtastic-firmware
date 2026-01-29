@@ -1700,6 +1700,12 @@ int Screen::handleInputEvent(const InputEvent *event)
             setFastFramerate();
             return 0;
         }
+#ifdef FLAGDAY_LAUNCH_CANNED_WITH_SELECT_LONG
+        // there's no way to get out w/o using the USER button, so compromise
+        if (event->inputEvent == INPUT_BROKER_SELECT_LONG) {
+            cannedMessageModule->LaunchWithDestination(NODENUM_BROADCAST);
+        }
+#endif
     }
     // Use left or right input from a keyboard to move between frames,
     // so long as a mesh module isn't using these events for some other purpose
