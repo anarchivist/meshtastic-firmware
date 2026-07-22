@@ -39,7 +39,7 @@ int BuzzerFeedbackThread::handleInputEvent(const InputEvent *event)
         playBeep();
         break;
     case INPUT_BROKER_SELECT_LONG:
-        playLongPressLeadUp();
+        play4ClickDown();
         break;
 #endif
 #endif
