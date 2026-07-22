@@ -718,12 +718,14 @@ class Screen : public concurrency::OSThread
         bool nodelist_location = true;
         bool gps = true;
         bool lora = true;
+        bool show_favorites = true;
 #else
         bool waypoint = false;
         bool wifi = false;
         bool system = false;
         bool home = false;
         bool clock = false;
+        bool show_favorites = false;
 #ifndef USE_EINK
         bool nodelist_nodes = false;
         bool nodelist_location = false;
@@ -741,7 +743,6 @@ class Screen : public concurrency::OSThread
 #endif
         bool lora = false;
 #endif
-        bool show_favorites = false;
         bool chirpy = true;
     } hiddenFrames;
 
