@@ -51,3 +51,6 @@
 #define FLAGDAY_LAUNCH_CANNED_WITH_SELECT_LONG 1
 #define FLAGDAY_CANNED_MESSAGES_DEFAULTS "👁️|👀|👍|👎|💧|→|🕳️|💪|🌬️|🔥|❓|🌫️"
 #define FLAGDAY_L10N_SELECT_DESTINATION "[Pick Destination]"
+// this is an override since we're setting -D HELTEC_V3 in platformio.ini,
+// so we don't have to modify src/Power.cpp
+#define HW_VENDOR meshtastic_HardwareModel_PRIVATE_HW
